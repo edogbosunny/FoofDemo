@@ -30,9 +30,9 @@ const validateUserInput = data => {
   if (!Validator.equals(data.password, data.password2)) {
     errors.password2 = "Confirm password does not match password";
   }
-  if (Validator.isEmpty(data.user_role)) {
-    errors.user_role = "User role is empty";
-  }
+  // if (Validator.isEmpty(data.user_role)) {
+  //   errors.user_role = "User role is empty";
+  // }
   return {
     errors,
     isValid: isEmpty(errors)

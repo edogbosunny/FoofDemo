@@ -6,7 +6,7 @@ import validateSignin from "../validation/signup";
 
 class signUp {
   static signUpCtr(req, res) {
-    let { user_id, username, email, password, user_role } = req.body;
+    let { user_id, username, email, password } = req.body;
     const { errors, isValid } = validateSignin(req.body);
     if (!isValid) {
       return res.status(400).json({
@@ -30,6 +30,7 @@ class signUp {
               token: null
             });
           }
+          const user_role = "user";
           const query = `INSERT INTO users(email, hashpassword, username, user_role)
           VALUES ($1, $2, $3, $4) RETURNING user_id `;
           const resp = await db.query(query, [
