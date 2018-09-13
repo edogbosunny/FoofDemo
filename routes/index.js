@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
 import signUpController from "../controllers/signupController";
+import signInController from "../controllers/signinController";
 import isAuthenticated from "../policy/isAuthenticated";
 
 const router = express.Router();
@@ -18,5 +19,6 @@ router.get("/", (req, res) => {
 });
 
 router.post("/signup", signUpController.signUpCtr);
+router.post("/signin", signInController.signinCtr);
 
 export default router;
