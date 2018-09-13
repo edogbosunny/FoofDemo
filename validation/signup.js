@@ -1,7 +1,7 @@
 import Validator from "validator";
 import isEmpty from "../validation/is-empty";
 
-module.exports = validateUserInput = data => {
+const validateUserInput = data => {
   let errors = {};
   data.username = !isEmpty(data.username) ? data.username : "";
   data.email = !isEmpty(data.email) ? data.email : "";
@@ -38,3 +38,5 @@ module.exports = validateUserInput = data => {
     isValid: isEmpty(errors)
   };
 };
+
+export default validateUserInput;

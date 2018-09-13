@@ -9,7 +9,7 @@ const createUsersTable = async () => {
           user_id SERIAL UNIQUE,
           username VARCHAR NOT NULL,
           email VARCHAR NOT NULL,
-          password VARCHAR NOT NULL, 
+          hashpassword VARCHAR NOT NULL, 
           user_role VARCHAR NOT NULL, 
           PRIMARY KEY(user_id, email)
       );`;
