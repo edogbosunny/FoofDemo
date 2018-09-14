@@ -1,26 +1,30 @@
 import jwt from "jsonwebtoken";
 import config from "../config/default";
 
+/* eslint-disable-next-line */
 class isAuthenticated {
   static authenticationCheck(req, res, next) {
     const token = req.headers["x-access-token"];
-    console.log("token", token);
+    //    console.log("tok :", req.headers);
     if (!token) {
       return res.status(401).send({
         auth: false,
         token: null,
-        message: "no token provided"
+        message: "No token provided."
       });
     }
+
     const decoded = jwt.verify(token, config.tokenSecret);
+
     if (decoded) {
-      req.app.set("user_id", decoded.id);
+       console.log("dc",decoded);
+      req.app.set("userId", decoded.id); // controllers depend on this
       next();
     } else {
-      return res.statuse(401).json({
+      return res.status(401).json({
         auth: false,
         token: null,
-        message: "failed to authenticate token"
+        message: "Failed to authenticate token."
       });
     }
   }

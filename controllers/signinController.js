@@ -6,6 +6,7 @@ import validateSignin from "../validation/signin";
 
 class signin {
   static signinCtr(req, res) {
+    //  console.log(req.app.get("user_id"));
     const { email, password } = req.body;
     const { errors, isValid } = validateSignin(req.body);
     if (!isValid) {
@@ -34,7 +35,7 @@ class signin {
             });
           } else {
             const userId = user.rows[0].user_id;
-            console.log("user table", user);
+            // console.log("user table", user);
             const token = jwt.sign({ id: userId }, config.tokenSecret, {
               expiresIn: 86400
             });
