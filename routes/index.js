@@ -23,12 +23,13 @@ router.get("/", (req, res) => {
 router.post("/signup", signUpController.signUpCtr);
 router.post("/signin", signInController.signinCtr);
 router.post("/order", [
-  isAuthenticated.authenticationCheck, isAdmin.isAdmin,
+  isAuthenticated.authenticationCheck,
+  isAdmin.isAdmin,
   orderController.addOrder
 ]);
 router.get("/getallorders", orderController.getAllOrder);
 router.get("/getorder/:id", orderController.getSingleOrder);
-router.post("/delorder/:id", orderController.deleteOrder);
+router.delete("/delorder/:id", orderController.deleteOrder);
 router.post("/update/:id", orderController.updateOrder);
 
 export default router;
