@@ -151,12 +151,21 @@ class Orders {
   static updateOrder(req, res) {
     console.log(req.params);
     const { id } = req.params;
+    const { errors, isValid } = validateOrderInput(req.body);
     const { meal, quantity, price, status } = req.body;
     const userId = req.app.get("userId");
 
     const updateQuery = `UPDATE orders SET meal = $1, 
     quantity = $2, price = $3, status = $4 
     WHERE order_id = $5 `;
+
+    if (!isValid) {
+      return res.status(400).json({
+        status: "failed",
+        token: null,
+        error: errors
+      });
+    }
     (async () => {
       try {
         const resp = await db.query(updateQuery, [
