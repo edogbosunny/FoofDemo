@@ -30,7 +30,13 @@ class signUp {
               token: null
             });
           }
-          const user_role = "user";
+          let user_role;
+          if (req.body.user_role === "" || req.body.user_role === undefined) {
+            user_role = "user";
+          } else {
+            user_role = req.body.user_role;
+          
+
           const query = `INSERT INTO users(email, hashpassword, username, user_role)
           VALUES ($1, $2, $3, $4) RETURNING user_id `;
           const resp = await db.query(query, [
@@ -39,6 +45,7 @@ class signUp {
             username,
             user_role
           ]);
+        
           const userId = resp.rows[0].user_id;
           const token = jwt.sign({ id: userId }, config.tokenSecret, {
             expiresIn: 86400
@@ -48,6 +55,7 @@ class signUp {
             auth: true,
             token
           });
+        }
         } catch (e) {
           throw e;
         }
