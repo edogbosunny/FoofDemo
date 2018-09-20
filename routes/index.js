@@ -27,9 +27,9 @@ router.post("/order", [
   isAdmin.isAdmin,
   orderController.addOrder
 ]);
-router.get("/getallorders", orderController.getAllOrder);
-router.get("/getorder/:id", orderController.getSingleOrder);
-router.delete("/delorder/:id", orderController.deleteOrder);
-router.post("/update/:id", orderController.updateOrder);
+router.get("/orders", orderController.getAllOrder);
+router.get("/orders/:id", orderController.getSingleOrder);
+router.delete("/orders/:id", orderController.deleteOrder);
+router.put("/update/:id", orderController.updateOrder);
 
 export default router;
