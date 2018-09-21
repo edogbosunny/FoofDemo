@@ -1,7 +1,7 @@
 import express from "express";
 import bodyParser from "body-parser";
-import createTables from "./models/index";
-import route from "./routes/index";
+import createTables from "./server/models/index";
+import route from "./server/routes/index";
 const port = process.env.PORT || 3003;
 
 //db creation
