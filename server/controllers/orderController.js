@@ -129,11 +129,8 @@ class Orders {
     const userId = req.app.get("userId");
 
     const updateQuery = `UPDATE orders SET meal = $1, quantity = $2, price = $3, status = $4 WHERE order_id = $5 `;
-
     if (!isValid) {
-      return res.status(400).json({
-        status: "failed", token: null, error: errors
-      });
+      return res.status(400).json({ status: "failed", token: null, error: errors });
     }
     (async () => {
       try {
@@ -141,15 +138,10 @@ class Orders {
         res.status(200).json({
           message: "success",
           resp: resp });
-      } catch (e) {
-        console.log(e);
-      }
+      } catch (e) {  console.log(e); }
     })().catch(err => {
       console.log(err);
-      return res.status(500).json({
-        statuc: "failed",
-        message: "server error"
-      });
+      return res.status(500).json({statuc: "failed", message: "server error" });
     });
   }
 }
