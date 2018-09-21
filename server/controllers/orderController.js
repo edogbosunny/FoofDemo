@@ -6,18 +6,18 @@ class Orders {
     const userId = req.app.get("userId");
     const { meal, quantity, price, status } = req.body;
     const { errors, isValid } = validateOrderInput(req.body);
-    console.log(userId);
+    // console.log(userId);
     if (!userId) {
       console.error("User id was not set");
       return res.status(500).json({
         message: "An error encountered on the server",
-        success: false
+        // success: false
       });
     }
 
     if (!isValid) {
       return res.status(400).json({
-        status: "failed",
+        // status: "failed",
         token: null,
         error: errors
       });
@@ -28,28 +28,17 @@ class Orders {
         VALUES ($1, $2, $3, $4, $5) RETURNING order_id
         `;
         const resp = await db.query(query, [
-          userId,
-          meal,
-          quantity,
-          price,
-          status
+          userId,meal,quantity,price,status
         ]);
         res.status(200).json({
           message: "product Uploaded Succesfully",
-          data: {
-            createdOn: Date.now(),
-            orderid: resp.rows[0].order_id,
-            meal,
-            quantity,
-            price,
-            status
-          }
+          data: {createdOn: Date.now(),orderid: resp.rows[0].order_id,meal,quantity,price,status}
         });
       } catch (e) {
         throw e;
       }
     })().catch(err => {
-      console.err(err);
+      // console.err(err);
       return res.status(500).json({
         success: false,
         message: "Server encountered an error"
@@ -58,12 +47,9 @@ class Orders {
   }
 
   static getAllOrder(req, res) {
-    const query = `SELECT o.order_id, o.meal,o.created_on, o.quantity, 
-        o.price, o.status, u.user_id, u.username  FROM orders as o
-        INNER JOIN users AS u
-        ON o.user_id = u.user_id`;
-
-    (async () => {
+    const query = `SELECT o.order_id, o.meal,o.created_on, o.quantity, o.price, o.status, u.user_id, u.username  FROM orders as o
+        INNER JOIN users AS u ON o.user_id = u.user_id`;
+ (async () => {
       const resp = await db.query(query);
       res.status(200).json({
         message: "all Order retrieved succesfully",
@@ -71,7 +57,7 @@ class Orders {
         data: resp.rows
       });
     })().catch(err => {
-      console.log(err);
+      // console.log(err);
       return res.status(500).json({
         message: "An error encountered on the server",
         success: false
@@ -87,16 +73,12 @@ class Orders {
     //  ON o.user_id = u.user_id
     //  WHERE o.order_id = $1`;
 
-    const singleOrderQuery = `SELECT o.order_id, o.meal,o.created_on, o.quantity, 
-    o.price, o.status, u.user_id, u.username  FROM orders as o
-    INNER JOIN users AS u
-    ON o.user_id = u.user_id
-    WHERE o.order_id = $1`;
-
+    const singleOrderQuery = `SELECT o.order_id, o.meal,o.created_on, o.quantity, o.price, o.status, u.user_id, u.username  FROM orders as o
+    INNER JOIN users AS u ON o.user_id = u.user_id WHERE o.order_id = $1`;
     (async () => {
       try {
         const resp = await db.query(singleOrderQuery, [id]);
-        console.log("resp====>", resp);
+        // console.log("resp====>", resp);
         res.status(200).json({
           message: "Single User order Retrieved Succesfully",
           data: resp
@@ -105,10 +87,10 @@ class Orders {
         throw e;
       }
     })().catch(err => {
-      console.log("err======", err);
+      // console.log("err======", err);
       return res.status(500).json({
         message: "An error encountered on the server",
-        success: false
+        // success: false
       });
     });
   }
@@ -118,21 +100,14 @@ class Orders {
     const { id } = req.params;
     //delete query
     const deleteQuery = `DELETE FROM orders WHERE order_id = $1`;
-    const checkQuery = `SELECT o.order_id, o.meal,o.created_on, o.quantity,
-    o.price, o.status, u.user_id,  u.username, u.user_role FROM orders as o
-    INNER JOIN users AS u
-    ON o.user_id = u.user_id
-    WHERE order_id = $1`;
-
+    const checkQuery = `SELECT o.order_id, o.meal,o.created_on, o.quantity, o.price, o.status, u.user_id,  u.username, u.user_role FROM orders as o
+    INNER JOIN users AS u ON o.user_id = u.user_id WHERE order_id = $1`;
     (async () => {
       try {
         const resp = await db.query(checkQuery, [id]);
         // console.log("response=========>", resp);
         if (resp.rows.length < 1) {
-          return res.status(400).json({
-            message: "order with specified ID does not exist"
-          });
-        }
+          return res.status(400).json({ message: "order with specified ID does not exist"});}
         await db.query(deleteQuery, [id]);
         return res.status(200).json({
           message: "order deleted succesfully"
@@ -142,10 +117,8 @@ class Orders {
       }
     })().catch(err => {
       console.log(err);
-      return res.status(500).json({
-        statuc: "failed",
-        message: "server error"
-      });
+      return res.status(500).json({ message: "server error"
+ });
     });
   }
   static updateOrder(req, res) {
@@ -155,30 +128,19 @@ class Orders {
     const { meal, quantity, price, status } = req.body;
     const userId = req.app.get("userId");
 
-    const updateQuery = `UPDATE orders SET meal = $1, 
-    quantity = $2, price = $3, status = $4 
-    WHERE order_id = $5 `;
+    const updateQuery = `UPDATE orders SET meal = $1, quantity = $2, price = $3, status = $4 WHERE order_id = $5 `;
 
     if (!isValid) {
       return res.status(400).json({
-        status: "failed",
-        token: null,
-        error: errors
+        status: "failed", token: null, error: errors
       });
     }
     (async () => {
       try {
-        const resp = await db.query(updateQuery, [
-          meal,
-          quantity,
-          price,
-          status,
-          id
-        ]);
+        const resp = await db.query(updateQuery, [meal, quantity,  price, status, id]);
         res.status(200).json({
           message: "success",
-          resp: resp
-        });
+          resp: resp });
       } catch (e) {
         console.log(e);
       }
