@@ -27,9 +27,7 @@ class signin {
             const token = jwt.sign({ id: userId }, config.tokenSecret, { expiresIn: 86400  });
             res.status(200).json({ auth: true, message: "Login Successful", token });
           }
-        } catch (e) {
-          throw e;
-        }
+        } catch (e) {throw e;}
       })().catch(err => {
         console.error(err);
         res.status(500).json({ auth: false, token: null, messsage: "The Server encountered a problem" });
