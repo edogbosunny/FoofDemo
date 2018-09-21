@@ -13,6 +13,7 @@ describe("#GET /orders", () => {
       .end((err, res) => {
         if (err) done(err);
         expect(res).to.have.status(200);
+        expect(res).to.be.an("object");
         done();
       });
   });

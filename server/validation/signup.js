@@ -18,9 +18,9 @@ const validateUserInput = data => {
   if (Validator.isEmpty(data.password)) {
     errors.password = "Password fiel is required";}
   if (!Validator.isLength(data.password, { min: 6, max: 30 })) {
-    errors.password = "Password fielld must be at least 6 chaaracters long";}
+    errors.password = "Password fielld must be at least 6 characters long";}
   if (Validator.isEmpty(data.password2)) {
-    errors.password2 = "Coonfirm Password Field is Required"; }
+    errors.password2 = "Confirm Password Field is Required"; }
   if (!Validator.equals(data.password, data.password2)) {
     errors.password2 = "Confirm password does not match password";}
   return {
