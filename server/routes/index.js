@@ -32,9 +32,9 @@ router.get("/orders/:id", orderController.getSingleOrder);
 router.delete("/orders/:id", orderController.deleteOrder);
 // router.delete("/user/:id", signUpController.deleteUser);
 router.put("/update/:id", [
-  orderController.updateOrder,
   isAuthenticated.authenticationCheck,
-  isAdmin.isAdmin
+  isAdmin.isAdmin,
+  orderController.updateOrder
 ]);
 
 export default router;

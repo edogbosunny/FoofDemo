@@ -6,6 +6,8 @@ const { expect, should } = chai;
 chai.use(chaiHttp);
 let token =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiaWF0IjoxNTM3MjUyNTM1LCJleHAiOjE1MzczMzg5MzV9.7M5BI00ezWOkHyNTY6ONcT0gTxXeS0VDzPYPp7Xp-pk";
+
+let userToken;   
 let orderToken;
 
 describe("#GET /orders", () => {
@@ -68,15 +70,16 @@ describe("#JWT Test", () => {
       });
   });
 });
-describe("#Update Product /order PUT", () => {
+describe("#Update Product /order =PUT", () => {
   it("#user should login first to acces token to update product", done => {
+ 
     chai
       .request(app)
       .post("/signin")
       .send({ email: "test@gmail.com", password: "123456" })
       .end((err, res) => {
         orderToken = res.body.token;
-        // console.log(orderToken);
+        console.log(orderToken);
         expect(res).to.have.status(201);
         done();
       });
@@ -85,6 +88,7 @@ describe("#Update Product /order PUT", () => {
     chai
       .request(app)
       .put("/update/1")
+      .set("x-access-token", orderToken)
       .send({
         meal: "rice",
         quantity: "0",
@@ -93,6 +97,36 @@ describe("#Update Product /order PUT", () => {
       })
       .end((err, res) => {
         expect(res).to.have.a.status(200);
+      });
+  });
+});
+
+// return error when user tries to update product
+describe("#Update Product /order PUT", () => {
+  it("#user should login first to acces token to update product", done => {
+    chai
+      .request(app)
+      .post("/signin")
+      .send({ email: "test@test.com", password: "123456" })
+      .end((err, res) => {
+        userToken = res.body.token;
+        expect(res).to.have.status(201);
+        done();
+      });
+  });
+  it("#user cannot update product because he is not an admin", () => {
+    chai
+      .request(app)
+      .put("/update/1")
+      .set("x-access-token", userToken)
+      .send({
+        meal: "rice",
+        quantity: "0",
+        price: "NA",
+        status: "pending"
+      })
+      .end((err, res) => {
+        expect(res).to.have.status(401);
       });
   });
 });

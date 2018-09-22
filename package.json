@@ -23,7 +23,8 @@
       "**/node_modules/**",
       "**/test/**",
       "**/coverage/**",
-      "**/dist/**"
+      "**/dist/**",
+      "**/server/config**"
 
     ],
     "all": true

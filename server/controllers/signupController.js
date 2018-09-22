@@ -19,7 +19,7 @@ class signUp {
           const userExist = await db.query(userQuery,[email]);
           if (userExist.rowCount > 0) {
             return res.status(400).json({message: "user with email already exists", auth: false,token: null}); }
-          let user_role = "admin";
+          let user_role = "user";
           const query = `INSERT INTO users(email, hashpassword, username, user_role) VALUES ($1, $2, $3, $4) RETURNING user_id `;
           const resp = await db.query(query, [ email, hashpassword, username,  user_role ]);
           const userId = resp.rows[0].user_id;
