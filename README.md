@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/edogbosunny/FoofDemo.svg?branch=develop)](https://travis-ci.org/edogbosunny/FoofDemo) [![Coverage Status](https://coveralls.io/repos/github/edogbosunny/FoofDemo/badge.svg?branch=develop)](https://coveralls.io/github/edogbosunny/FoofDemo?branch=develop)  [![Test Coverage](https://api.codeclimate.com/v1/badges/e9c996a6ee0db9e74f11/test_coverage)](https://codeclimate.com/github/edogbosunny/FoofDemo/test_coverage)  [![Maintainability](https://api.codeclimate.com/v1/badges/e9c996a6ee0db9e74f11/maintainability)](https://codeclimate.com/github/edogbosunny/FoofDemo/maintainability)
 ## Feature
-
+[![Coverage Status](https://coveralls.io/repos/github/edogbosunny/FoofDemo/badge.svg?branch=develop)](https://coveralls.io/github/edogbosunny/FoofDemo?branch=develop)
 - user can create a new order
 - user can update a new order
 - users can delete a new order
