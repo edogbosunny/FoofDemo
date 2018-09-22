@@ -10,14 +10,11 @@ class Orders {
     if (!userId) {
       console.error("User id was not set");
       return res.status(500).json({
-        message: "An error encountered on the server",
-        // success: false
-      });
+        message: "An error encountered on the server", });
     }
 
     if (!isValid) {
       return res.status(400).json({
-        // status: "failed",
         token: null,
         error: errors
       });
@@ -138,9 +135,9 @@ class Orders {
         res.status(200).json({
           message: "success",
           resp: resp });
-      } catch (e) {  console.log(e); }
+      } catch (e) {   }
     })().catch(err => {
-      console.log(err);
+      // console.log(err);
       return res.status(500).json({statuc: "failed", message: "server error" });
     });
   }

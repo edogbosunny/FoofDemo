@@ -8,6 +8,18 @@ const { expect, should } = chai;
 chai.use(chaiHttp);
 let token;
 
+describe("#default route /", () => {
+  it("#shoulld return 200 /", done => {
+    chai
+      .request(app)
+      .get("/")
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        done();
+      });
+  });
+});
+
 describe("#user-SignIn /POST", () => {
   it("User should be able to sign in and get token", done => {
     chai
@@ -37,6 +49,21 @@ describe("#user-SignIn /POST", () => {
         done();
       });
   });
+  it("#Test for wrong email details", done => {
+    chai
+      .request(app)
+      .post("/signin")
+      .send({ email: "aaaaa@aaa.com", password: "123456" })
+      .end((err, res) => {
+        expect(res).to.be.an("object");
+        expect(res.body)
+          .to.have.property("token")
+          .eqls(null);
+        expect(res).to.have.status(401);
+        done();
+      });
+  });
+
   it("#Unregistered emails cannot login", done => {
     chai
       .request(app)

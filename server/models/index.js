@@ -9,7 +9,7 @@ const CreateTables = async () => {
     const orderTable = await createOrderTable();
     console.log("order table init");
   } catch (e) {
-    throw e;
+    // throw e;
   }
 };
 

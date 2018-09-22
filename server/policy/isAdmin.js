@@ -7,7 +7,7 @@ class Admin {
     (async () => {
       try {
         let resp = await db.query(query, [userId]);
-        console.log("resp=======>", resp.rows[0].user_role);
+        // console.log("resp=======>", resp.rows[0].user_role);
         let userRole = resp.rows[0].user_role;
         if (userRole === "user") {
           return res.status(401).json({
@@ -20,11 +20,11 @@ class Admin {
           next();
         }
       } catch (e) {
-        console.log(e);
+        // console.log(e);
       }
     })().catch(err => {
-      console.log(err);
-      return res.sstatus(500).json({
+      // console.log(err);
+      return res.status(500).json({
         error: true,
         message: "internal server error"
       });

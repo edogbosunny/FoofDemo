@@ -9,7 +9,7 @@ const validateUserInput = data => {
   data.status = !isEmpty(data.status) ? data.status : "";
 
   if (Validator.isEmpty(data.meal)) {
-    errors.meal = "Meal field empty, please enter a meall";
+    errors.meal = "Meal field empty, please enter a meal";
   }
   if (Validator.isEmpty(data.quantity)) {
     errors.quantity = "Quantity field is empty, please enter an email";
