@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import dbURI from "./keys";
 
 dotenv.config();
-const connectionString = dbURI.psqlURI || process.env.DATABASE_URL;
+const connectionString = dbURI.psqlURI ;
 
 const pool = new Pool({
   connectionString
