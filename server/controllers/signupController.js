@@ -41,7 +41,6 @@ class signUp {
     (async () => {
       try {
     const serverResp = await db.query(checkUserQuery, [id]);
-        // console.log("response=========>", resp);
         if (serverResp.rows.length < 1) {
           return res.status(405).json({ message: "user does not exist" });
         }
