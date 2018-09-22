@@ -20,7 +20,7 @@ class isAuthenticated {
         return res.status(401).json({err});
       } if(decoded) {
         // console.log("dc=====>", decoded);
-        req.app.set("userId", declare.id); //controllers would need this
+        req.app.set("userId", decoded.id); //controllers would need this
         next();
       }else{
         return res.status(402).json({ auth: false, token: null, message: "Failed to authenticate token."})

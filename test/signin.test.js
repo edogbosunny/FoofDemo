@@ -14,7 +14,7 @@ describe("#user-SignIn /POST", () => {
       .request(app)
       .post("/signin")
       .send({ email: "test@gmail.com", password: "123456" })
-      .end((err, res) => {
+      .end((err, res, req) => {
         token = res.body.token;
         expect(res).to.be.an("object");
         expect(res).to.have.status(201);
@@ -51,14 +51,16 @@ describe("#user-SignIn /POST", () => {
       });
   });
   it("#Wrong Passwords cannot login", done => {
-    chai.request(app)
-    .post("/signin")
-    .send({ email: "test@test.com", password: "123444" }).end((err, res) => {
-      expect(res).to.be.an("object");
-      expect(res.body)
-        .to.have.property("token")
-        .eqls(null);
-      done();
-    });
+    chai
+      .request(app)
+      .post("/signin")
+      .send({ email: "test@test.com", password: "123444" })
+      .end((err, res) => {
+        expect(res).to.be.an("object");
+        expect(res.body)
+          .to.have.property("token")
+          .eqls(null);
+        done();
+      });
   });
 });
