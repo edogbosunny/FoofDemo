@@ -23,14 +23,13 @@ class signin {
             res.status(401).json({ auth: false, token: null, message: "Password is not correct" });
           } else {
             const userId = user.rows[0].user_id;
-            // console.log("user table", user);
             const token = jwt.sign({ id: userId }, config.tokenSecret, { expiresIn: 86400  });
-            res.status(200).json({ auth: true, message: "Login Successful", token });
+            res.status(201).json({ auth: true, message: "Login Successful", token });
           }
         } catch (e) {throw e;}
       })().catch(err => {
         console.error(err);
-        res.status(500).json({ auth: false, token: null, messsage: "The Server encountered a problem" });
+        res.status(501).json({ auth: false, token: null, messsage: "The Server encountered a problem" });
       });
     }
   }
