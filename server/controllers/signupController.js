@@ -70,10 +70,9 @@ class signUp {
     const checkUserQuery = `SELECT * FROM users WHERE user_id = $1`;
     (async () => {
       try {
-    const checkUserQuery = `SELECT * FROM users WHERE user_id = $1`;
-    const resp = await db.query(checkQuery, [id]);
+    const serverResp = await db.query(checkUserQuery, [id]);
         // console.log("response=========>", resp);
-        if (resp.rows.length < 1) {
+        if (serverResp.rows.length < 1) {
           return res.status(405).json({ message: "user does not exist" });
         }
         await db.query(deleteUserQuery, [id]);

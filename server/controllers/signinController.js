@@ -14,9 +14,10 @@ class signin {
     } else {
       (async () => {
         try {
-          const user = await db.query("SELECT * FROM users WHERE email = $1", [ email ]);
+          let userQuery = "SELECT * FROM users WHERE email = $1"
+          const user = await db.query(userQuery, [ email ]);
           if (user.rows.length < 1) {
-            res.status(401).json({
+            res.status(405).json({
               auth: false, token: null, message: "User does not exist"
             });
           } else if (!bcrypt.compareSync(password, user.rows[0].hashpassword)) {
