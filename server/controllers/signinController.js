@@ -28,7 +28,7 @@ class signin {
           }
         } catch (e) {throw e;}
       })().catch(err => {
-        // console.error(err);
+        console.error(err);
         res.status(501).json({ auth: false, token: null, messsage: "The Server encountered a problem" });
       });
     }
