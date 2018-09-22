@@ -6,7 +6,7 @@
   "scripts": {
     "start:dev": "nodemon app.js --exec babel-node --",
     "build": "babel server -d dist/server && babel app.js -d dist",
-    "start": "npm run postinstall && node dist/app.js",
+    "start": " node dist/app.js",
     "test": "nyc mocha test/**/*test.js --exit",
     "coverage": "cross-env NODE_ENV=test nyc --reporter=lcov --reporter=text --cache mocha test/**/*test.js --exit",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
