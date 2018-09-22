@@ -30,7 +30,7 @@ class signUp {
               token: null
             });
           }
-           let user_role = "admin";
+          let user_role = "admin";
           const query = `INSERT INTO users(email, hashpassword, username, user_role)
           VALUES ($1, $2, $3, $4) RETURNING user_id `;
           const resp = await db.query(query, [
@@ -39,7 +39,7 @@ class signUp {
             username,
             user_role
           ]);
-        
+
           const userId = resp.rows[0].user_id;
           const token = jwt.sign({ id: userId }, config.tokenSecret, {
             expiresIn: 86400
@@ -49,7 +49,6 @@ class signUp {
             auth: true,
             token
           });
-        
         } catch (e) {
           throw e;
         }
@@ -62,6 +61,34 @@ class signUp {
         });
       });
     }
+  }
+  //delete user
+  static deleteUser(req, res) {
+    //restrict thsi route only to admin
+    const { id } = req.params;
+    //delete query
+    const deleteUserQuery = `DELETE FROM users WHERE user_id = $1`;
+    const checkQuery = `SELECT * FROM users WHERE user_id = $1`;
+    (async () => {
+      try {
+        const resp = await db.query(checkQuery, [id]);
+        // console.log("response=========>", resp);
+        if (resp.rows.length < 1) {
+          return res.status(400).json({ message: "user does not exist" });
+        }
+        await db.query(deleteUserQuery, [id]);
+        return res.status(200).json({
+          message: "user deleted succesfully"
+        });
+      } catch (e) {
+        throw e;
+      }
+    })().catch(err => {
+      console.log(err);
+      return res.status(500).json({
+        message: "server error"
+      });
+    });
   }
 }
 

@@ -1,4 +1,5 @@
-module.exports = {
-  psqlURI:
-    "postgres://qhefalxv:38KtNbxAYz_ugrv_96XyjZrVXlaUkaEr@stampy.db.elephantsql.com:5432/qhefalxv"
-};
+if (process.env.NODE_ENV === "production") {
+  module.exports = require("./keys_prod");
+} else {
+  module.exports = require("./keys_dev");
+}

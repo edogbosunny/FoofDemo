@@ -22,7 +22,9 @@
     "exclude": [
       "**/node_modules/**",
       "**/test/**",
-      "**/coverage/**"
+      "**/coverage/**",
+      "**/dist/**"
+
     ],
     "all": true
   },
