@@ -42,6 +42,18 @@ describe("#JWT Test", () => {
       .set("x-access-token", token)
       .end((err, res) => {
         expect(res).to.be.an("object");
+        expect(res.body.err)
+          .to.have.property("name")
+          .eqls("TokenExpiredError");
+        done();
+      });
+  });
+  it("#Should return status 401 when no token is provided", done => {
+    chai
+      .request(app)
+      .post("/order")
+      .end((err, res) => {
+        expect(res).to.have.status(401);
         done();
       });
   });
