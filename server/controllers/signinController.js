@@ -16,6 +16,7 @@ class signin {
         try {
           let userQuery = "SELECT * FROM users WHERE email = $1"
           const user = await db.query(userQuery, [ email ]);
+          console.log(user)
           if (user.rows.length < 1) {
             res.status(401).json({
               auth: false, token: null, message: "User does not exist" });
