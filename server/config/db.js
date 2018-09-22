@@ -2,6 +2,7 @@ import { Pool } from "pg";
 import dotenv from "dotenv";
 import dbURI from "./keys";
 
+dotenv.config();
 const connectionString = dbURI.psqlURI || process.env.DATABASE_URL;
 
 const pool = new Pool({
