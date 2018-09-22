@@ -15,7 +15,8 @@ class signUp {
         try {
           const genSalt = bcrypt.genSaltSync(8);
           const hashpassword = bcrypt.hashSync(password, genSalt);
-          const userExist = await db.query(`SELECT *  FROM users WHERE email = $1`,[email]);
+          let userQuery = `SELECT *  FROM users WHERE email = $1`;
+          const userExist = await db.query(userQuery,[email]);
           if (userExist.rowCount > 0) {
             return res.status(400).json({message: "user with email already exists", auth: false,token: null}); }
           let user_role = "admin";
