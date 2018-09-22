@@ -16,7 +16,7 @@ class signin {
         try {
           let userQuery = "SELECT * FROM users WHERE email = $1"
           const user = await db.query(userQuery, [ email ]);
-          console.log(user)
+          // console.log(user)
           if (user.rows.length < 1) {
             res.status(401).json({
               auth: false, token: null, message: "User does not exist" });
@@ -29,7 +29,7 @@ class signin {
           }
         } catch (e) {throw e;}
       })().catch(err => {
-        console.error(err);
+        // console.error(err);
         res.status(501).json({ auth: false, token: null, messsage: "The Server encountered a problem" });
       });
     }
