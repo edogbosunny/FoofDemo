@@ -8,18 +8,6 @@ const { expect } = chai;
 chai.use(chaiHttp);
 let token;
 
-// describe("#Delete /user/3", () => [
-//   it("should delete user by ID", done => {
-//     chai
-//       .request(app)
-//       .del("/user/3")
-//       .end((err, res) => {
-//         expect(res).to.be.an("object");
-//         done();
-//       });
-//   })
-// ]);
-
 describe("#Signup /signup POST", () => {
   it("#should return status 400 email exists", done => {
     chai
@@ -73,4 +61,6 @@ describe("#Signup /signup POST", () => {
         done();
       });
   });
+
+  
 });

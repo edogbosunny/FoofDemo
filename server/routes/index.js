@@ -30,7 +30,7 @@ router.post("/order", [
 router.get("/orders", orderController.getAllOrder);
 router.get("/orders/:id", orderController.getSingleOrder);
 router.delete("/orders/:id", orderController.deleteOrder);
-router.delete("/user/:id", signUpController.deleteUser);
+// router.delete("/user/:id", signUpController.deleteUser);
 router.put("/update/:id", orderController.updateOrder);
 
 export default router;

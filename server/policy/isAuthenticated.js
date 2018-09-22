@@ -14,19 +14,18 @@ class isAuthenticated {
       });
     }
 
-    const decoded = jwt.verify(token, config.tokenSecret);
-
-    if (decoded) {
-       console.log("dc",decoded);
-      req.app.set("userId", decoded.id); // controllers depend on this
-      next();
-    } else {
-      return res.status(401).json({
-        auth: false,
-        token: null,
-        message: "Failed to authenticate token."
-      });
-    }
+    const decodedJwt = jwt.verify(token, config.tokenSecret, (err, decoded) => {
+      if (err) {
+        // console.log(err);
+        return res.status(401).json({err});
+      } if(decoded) {
+        // console.log("dc=====>", decoded);
+        req.app.set("userId", declare.id); //controllers would need this
+        next();
+      }else{
+        return res.status(402).json({ auth: false, token: null, message: "Failed to authenticate token."})
+      }
+    });
   }
 }
 

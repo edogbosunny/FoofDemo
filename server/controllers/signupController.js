@@ -34,31 +34,31 @@ class signUp {
     }
   }
   //delete user
-  static deleteUser(req, res, next) {
-    //ONly an Administrator should accces this route
-    const { id } = req.params;
-    const deleteUserQuery = `DELETE FROM users WHERE user_id = $1`;
-    const checkUserQuery = `SELECT * FROM users WHERE user_id = $1`;
-    (async () => {
-      try {
-    const serverResp = await db.query(checkUserQuery, [id]);
-        if (serverResp.rows.length < 1) {
-          return res.status(405).json({ message: "user does not exist" });
-        }
-        await db.query(deleteUserQuery, [id]);
-        return res.status(201).json({
-          message: "user deleted succesfully"
-        });
-      } catch (e) {
-        throw e;
-      }
-    })().catch(err => {
-      console.log(err);
-      return res.status(500).json({
-        message: "server error"
-      });
-    });
-  }
+  // static deleteUser(req, res, next) {
+  //   //ONly an Administrator should accces this route
+  //   const { id } = req.params;
+  //   const deleteUserQuery = `DELETE FROM users WHERE user_id = $1`;
+  //   const checkUserQuery = `SELECT * FROM users WHERE user_id = $1`;
+  //   (async () => {
+  //     try {
+  //   const serverResp = await db.query(checkUserQuery, [id]);
+  //       if (serverResp.rows.length < 1) {
+  //         return res.status(405).json({ message: "user does not exist" });
+  //       }
+  //       await db.query(deleteUserQuery, [id]);
+  //       return res.status(201).json({
+  //         message: "user deleted succesfully"
+  //       });
+  //     } catch (e) {
+  //       throw e;
+  //     }
+  //   })().catch(err => {
+  //     console.log(err);
+  //     return res.status(500).json({
+  //       message: "server error"
+  //     });
+  //   });
+  // }
 }
 
 export default signUp;
