@@ -63,21 +63,21 @@ class signUp {
     }
   }
   //delete user
-  static deleteUser(req, res) {
-    //restrict thsi route only to admin
+  static deleteUser(req, res, next) {
+    //ONly an Administrator should accces this route
     const { id } = req.params;
-    //delete query
     const deleteUserQuery = `DELETE FROM users WHERE user_id = $1`;
-    const checkQuery = `SELECT * FROM users WHERE user_id = $1`;
+    const checkUserQuery = `SELECT * FROM users WHERE user_id = $1`;
     (async () => {
       try {
-        const resp = await db.query(checkQuery, [id]);
+    const checkUserQuery = `SELECT * FROM users WHERE user_id = $1`;
+    const resp = await db.query(checkQuery, [id]);
         // console.log("response=========>", resp);
         if (resp.rows.length < 1) {
-          return res.status(400).json({ message: "user does not exist" });
+          return res.status(405).json({ message: "user does not exist" });
         }
         await db.query(deleteUserQuery, [id]);
-        return res.status(200).json({
+        return res.status(201).json({
           message: "user deleted succesfully"
         });
       } catch (e) {
