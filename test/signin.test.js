@@ -17,7 +17,7 @@ describe("#user-SignIn /POST", () => {
       .end((err, res) => {
         token = res.body.token;
         expect(res).to.be.an("object");
-        expect(res).to.have.status(200);
+        expect(res).to.have.status(201);
         expect(res.body)
           .to.have.property("token")
           .length.greaterThan(12);
